@@ -9,6 +9,7 @@
   "author": "jigsaw (http://jgs.me)",
   "license": "MIT",
   "dependencies": {
-    "coffee-script": "^1.7.1"
+    "coffee-script": "^1.7.1",
+    "express": "^4.8.3"
   }
 }
