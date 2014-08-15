@@ -1,0 +1,11 @@
+{
+  "name": "gj",
+  "version": "0.0.0",
+  "description": "gif jockey GJ!!!!",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jigsaw (http://jgs.me)",
+  "license": "MIT"
+}
