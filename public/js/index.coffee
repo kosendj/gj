@@ -15,6 +15,9 @@ do->
     data:
       url: ''
 
+  Vue.component 'jockey', Vue.extend
+    template: '#jockey'
+
   main = new Vue
     el: '.buttons'
     data:
@@ -23,4 +26,5 @@ do->
   router = new Router
     '': -> main.current = 'top'
     'upload': -> main.current = 'upload'
+    'jockey': -> main.current = 'jockey'
   router.init()

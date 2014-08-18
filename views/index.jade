@@ -18,13 +18,19 @@ block body
   script(id='top', type='x-template')
     a.upload.button(href='#upload')
       p Upload
-    .request.button
-      p Request
+    a.request.button(href='#jockey')
+      p Jockey
 
   script(id='upload', type='x-template')
     .url.button
       textarea(placeholder='http://...', v-model='url', autofocus)
     .send.button(v-on='click: send(this)')
       p Send
+
+  script(id='jockey', type='x-template')
+    .gif.button
+      p Select GIF
+    .bpm.button
+      p BPM sync
 
   script(src='/js/index.js', type='text/javascript')
