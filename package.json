@@ -14,6 +14,10 @@
     "jade": "^1.5.0",
     "stylus": "^0.47.3",
     "coffee-middleware": "^0.2.1",
-    "body-parser": "^1.6.5"
+    "body-parser": "^1.6.5",
+    "request": "^2.40.0",
+    "mmmagic": "^0.3.8",
+    "redis": "^0.12.1",
+    "async": "^0.9.0"
   }
 }
