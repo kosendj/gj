@@ -18,6 +18,16 @@ do->
   Vue.component 'jockey', Vue.extend
     template: '#jockey'
 
+  Vue.component 'select', Vue.extend
+    template: '#select'
+    data:
+      urls: []
+    ready: ->
+      $.ajax
+        type: 'GET'
+        url: '/gifs'
+      .done (res)=> @.$data.urls = res
+
   main = new Vue
     el: '.buttons'
     data:
@@ -27,4 +37,5 @@ do->
     '': -> main.current = 'top'
     'upload': -> main.current = 'upload'
     'jockey': -> main.current = 'jockey'
+    'select': -> main.current = 'select'
   router.init()

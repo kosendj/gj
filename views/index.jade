@@ -28,9 +28,13 @@ block body
       p Send
 
   script(id='jockey', type='x-template')
-    .gif.button
+    a.gif.button(href='#select')
       p Select GIF
     .bpm.button
       p BPM sync
+
+  script(id='select', type='x-template')
+    .preview(v-repeat='urls')
+      img(src='{{$value}}')
 
   script(src='/js/index.js', type='text/javascript')

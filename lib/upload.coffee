@@ -1,6 +1,7 @@
 async   = require 'async'
 request = require 'request'
 {Magic} = require 'mmmagic'
+{add}   = require './queue'
 
 module.exports = (req, res)->
   res.send 'ok'
@@ -17,6 +18,6 @@ module.exports = (req, res)->
       magic.detect body, (err, mime)-> cb err, url, mime
 
     (url, mime, cb)->
-      process.globals.redis.lpush 'gifs', url if mime?.match /^GIF/
+      add url if mime?.match /^GIF/
       cb null
-  ], (err)
+  ], (err)->
