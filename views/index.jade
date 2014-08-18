@@ -7,9 +7,11 @@ block links
 block scripts
   script(src='//cdnjs.cloudflare.com/ajax/libs/vue/0.10.5/vue.min.js', type='text/javascript')
   script(src='//rawgit.com/flatiron/director/master/build/director.js', type='text/javascript')
+  script(src='//code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
 
 block body
-  header GJ
+  a(href='#')
+    header GJ
   .buttons
     .current(v-view='current', v-ref='view')
 
@@ -21,8 +23,8 @@ block body
 
   script(id='upload', type='x-template')
     .url.button
-      textarea(placeholder='http://...', autofocus)
-    .send.button
+      textarea(placeholder='http://...', v-model='url', autofocus)
+    .send.button(v-on='click: send(this)')
       p Send
 
   script(src='/js/index.js', type='text/javascript')
