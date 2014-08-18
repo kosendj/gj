@@ -14,9 +14,15 @@ block body
     .current(v-view='current', v-ref='view')
 
   script(id='top', type='x-template')
-    .upload.button
+    a.upload.button(href='#upload')
       p Upload
     .request.button
       p Request
+
+  script(id='upload', type='x-template')
+    .url.button
+      textarea(placeholder='http://...', autofocus)
+    .send.button
+      p Send
 
   script(src='/js/index.js', type='text/javascript')
