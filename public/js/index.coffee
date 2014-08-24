@@ -17,6 +17,7 @@ Vue.component 'select', Vue.extend
   template: '#select'
   data:
     urls: []
+    page: 0
   ready: ->
     $.ajax
       type: 'GET'
@@ -25,6 +26,14 @@ Vue.component 'select', Vue.extend
   methods:
     choose: (v)->
       socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
+    more: ->
+      @.$data.page += 1
+      $.ajax
+        type: 'GET'
+        url: "/gifs?page=#{@.$data.page}"
+      .done (res)=>
+        for url in _.uniq(res.reverse())
+          @.$data.urls.push url
 
 Vue.component 'bpm', Vue.extend
   template: '#bpm'
