@@ -14,10 +14,15 @@ main = new Vue
   template: '#gifs'
   data:
     urls: []
-  ready: ->
-    $.ajax
-      type: 'GET'
-      url: '/gifs/queue'
-    .done (res)=>
-      @.$data.urls = res
-      change()
+  ready: -> @update -> change()
+  methods:
+    update: (cb)->
+      $.ajax
+        type: 'GET'
+        url: '/gifs/queue'
+      .done (res)=>
+        @.$data.urls = res
+        if cb? then cb()
+
+socket.on 'added',  -> main.update()
+socket.on 'choose', -> main.update()

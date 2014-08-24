@@ -1,11 +1,14 @@
-async = require 'async'
+async   = require 'async'
 request = require 'request'
 {Magic} = require 'mmmagic'
 {add}   = require './queue'
+{push}  = require './queue'
+io      = process.globals.io
 
 module.exports = (socket)->
   socket.on 'choose', (url)->
-    console.log url
+    push url
+    io.emit 'choose'
 
   socket.on 'upload', (url)->
     async.waterfall [
@@ -22,6 +25,6 @@ module.exports = (socket)->
       (url, mime, cb)->
         if mime?.match /^GIF/
           add url
-          process.globals.io.emit 'added', url
+          io.emit 'added', url
         cb null
     ], (err)->
