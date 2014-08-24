@@ -1,15 +1,13 @@
 socket = io()
 
-change = (i)->
+change = ->
   $gifs = $('.gif')
-  if i >= $gifs.length then i = 0
   $gifs.css
     opacity: 0
-  $(".gif:eq(#{i})").css
+  target = Math.floor(Math.random() * $gifs.length)
+  $(".gif:eq(#{target})").css
     opacity: 1
-  setTimeout ->
-    change i+1
-  , 600
+  setTimeout change, 600
 
 main = new Vue
   el: '.container'
@@ -22,4 +20,4 @@ main = new Vue
       url: '/gifs/queue'
     .done (res)=>
       @.$data.urls = res
-      change 0
+      change()
