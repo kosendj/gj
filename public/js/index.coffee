@@ -21,7 +21,7 @@ Vue.component 'select', Vue.extend
     $.ajax
       type: 'GET'
       url: '/gifs'
-    .done (res)=> @.$data.urls = res.reverse()
+    .done (res)=> @.$data.urls = _.uniq res.reverse()
   methods:
     choose: (v)->
       socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
