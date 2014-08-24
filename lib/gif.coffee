@@ -1,7 +1,7 @@
 request = require 'request'
 
 exports.index = (req, res)->
-  process.globals.redis.lrange 'gifs', 0, 20, (err, reply)-> res.json reply
+  process.globals.redis.lrange 'gifs', 0, 10, (err, reply)-> res.json reply
 
 exports.retrieve = (req, res)->
   request

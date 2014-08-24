@@ -6,13 +6,7 @@ Vue.component 'top', Vue.extend
 Vue.component 'upload', Vue.extend
   template: '#upload'
   methods:
-    send: ->
-      $.ajax
-        type: 'POST'
-        url: '/upload'
-        data:
-          url: @.$data.url
-      .done (res)-> console.log res
+    send: -> socket.emit 'upload', @.$data.url
   data:
     url: ''
 
@@ -27,7 +21,7 @@ Vue.component 'select', Vue.extend
     $.ajax
       type: 'GET'
       url: '/gifs'
-    .done (res)=> @.$data.urls = res
+    .done (res)=> @.$data.urls = res.reverse()
   methods:
     choose: (v)->
       socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
@@ -43,3 +37,6 @@ router = new Router
   'jockey': -> main.current = 'jockey'
   'select': -> main.current = 'select'
 router.init()
+
+socket.on 'added', (url)->
+  main.$.view.$data.urls.push url
