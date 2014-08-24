@@ -8,6 +8,7 @@ block scripts
   script(src='//cdnjs.cloudflare.com/ajax/libs/vue/0.10.5/vue.min.js', type='text/javascript')
   script(src='//rawgit.com/flatiron/director/master/build/director.js', type='text/javascript')
   script(src='//code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
+  script(src='/socket.io/socket.io.js', type='text/javascript')
 
 block body
   a(href='#')
@@ -35,6 +36,6 @@ block body
 
   script(id='select', type='x-template')
     .preview(v-repeat='urls')
-      img(src='{{$value}}')
+      img(src='{{$value}}', v-on='click: choose(this)')
 
   script(src='/js/index.js', type='text/javascript')

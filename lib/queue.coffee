@@ -10,3 +10,6 @@ exports.add = (url)->
   redis.lpush 'gifs', url
   redis.lpush 'queue', url
   overflowCheck()
+
+exports.index = (req, res)->
+  redis.lrange 'queue', 0, 20, (err, reply)-> res.json reply

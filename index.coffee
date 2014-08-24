@@ -4,6 +4,9 @@ stylus = require('stylus').middleware
 coffee = require 'coffee-middleware'
 app = express()
 
+http = require('http').Server app
+io = require('socket.io')(http)
+
 redis   = require 'redis'
 
 if process.env.REDISTOGO_URL
@@ -26,6 +29,11 @@ app.use express.static("#{__dirname}/public")
 
 app.get  '/', (req, res)-> res.render 'index'
 app.post '/upload', require './lib/upload'
-app.get  '/gifs', require './lib/gif'
+app.get  '/gifs', require('./lib/gif').index
+app.get  '/gifs/queue', require('./lib/queue').index
+app.get  '/gifs/retrieve', require('./lib/gif').retrieve
+app.get  '/screen', (req, res)-> res.render 'screen'
 
-app.listen process.env.PORT || 3000
+io.on 'connection', require './lib/socket'
+
+http.listen process.env.PORT || 3000
