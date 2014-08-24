@@ -6,9 +6,16 @@ Vue.component 'top', Vue.extend
 Vue.component 'upload', Vue.extend
   template: '#upload'
   methods:
-    send: -> socket.emit 'upload', @.$data.url
+    send: ->
+      socket.emit 'upload', @.$data.url
+      @.$data.status = 'done'
+      setTimeout =>
+        @.$data.status = 'send'
+        @.$data.url = ''
+      , 2000
   data:
     url: ''
+    status: 'send'
 
 Vue.component 'jockey', Vue.extend
   template: '#jockey'
@@ -18,6 +25,7 @@ Vue.component 'select', Vue.extend
   data:
     urls: []
     page: 0
+    showMore: true
   ready: ->
     $.ajax
       type: 'GET'
@@ -32,6 +40,8 @@ Vue.component 'select', Vue.extend
         type: 'GET'
         url: "/gifs?page=#{@.$data.page}"
       .done (res)=>
+        if res.length is 0
+          @.$data.showMore = false
         for url in _.uniq(res.reverse())
           @.$data.urls.push url
 
