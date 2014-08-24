@@ -3,6 +3,7 @@ request = require 'request'
 {Magic} = require 'mmmagic'
 {add}   = require './queue'
 {push}  = require './queue'
+{update} = require './bpm'
 io      = process.globals.io
 
 module.exports = (socket)->
@@ -28,3 +29,7 @@ module.exports = (socket)->
           io.emit 'added', url
         cb null
     ], (err)->
+
+  socket.on 'bpm', (bpm)->
+    update bpm
+    io.emit 'bpm', bpm

@@ -31,11 +31,15 @@ block body
   script(id='jockey', type='x-template')
     a.gif.button(href='#select')
       p Select GIF
-    .bpm.button
+    a.bpm.button(href='#bpm')
       p BPM sync
 
   script(id='select', type='x-template')
     .preview(v-repeat='urls')
       img(src='{{$value}}', v-on='click: choose(this)')
+
+  script(id='bpm', type='x-template')
+    .bpm(v-on='click: measure(this)') {{bpm}}
+      p (tap here)
 
   script(src='/js/index.js', type='text/javascript')

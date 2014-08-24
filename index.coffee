@@ -34,6 +34,7 @@ app.get '/gifs', require('./lib/gif').index
 app.get '/gifs/queue', require('./lib/queue').index
 app.get '/gifs/retrieve', require('./lib/gif').retrieve
 app.get '/screen', (req, res)-> res.render 'screen'
+app.get '/bpm', require('./lib/bpm').get
 
 io.on 'connection', require './lib/socket'
 
