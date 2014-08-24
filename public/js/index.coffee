@@ -46,8 +46,12 @@ Vue.component 'bpm', Vue.extend
         when 3
           end = new Date().getTime()
           diff = end - @.$data.start
-          @.$data.bpm = Math.floor((diff / 1000) * 60)
-          socket.emit 'bpm', @.$data.bpm
+          bpmcandidate = Math.floor((diff / 1000) * 60)
+          if bpmcandidate <= 60
+            bpmcandidate *= 3
+          @.$data.bpm = bpmcandidate
+          if bpmcandidate < 400
+            socket.emit 'bpm', @.$data.bpm
           @.$data.count = 0
         else
           @.$data.count += 1
