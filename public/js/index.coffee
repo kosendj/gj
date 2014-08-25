@@ -42,7 +42,7 @@ Vue.component 'select', Vue.extend
         type: 'GET'
         url: "/gifs?page=#{@.$data.page}"
       .done (res)=>
-        if res.length is 0
+        if res.length < 10
           @.$data.showMore = false
         for url in _.uniq(res.reverse())
           @.$data.urls.push url
