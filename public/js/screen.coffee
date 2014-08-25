@@ -42,7 +42,6 @@ filterMaker = ->
   for effect in effects
     if Math.random() < 0.16
       result += "#{effect.name}(#{effect.values[Math.floor(Math.random()*effect.values.length)]}#{effect.unit}) "
-  console.log result
   result
 
 change = ->
