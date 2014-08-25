@@ -33,7 +33,9 @@ Vue.component 'select', Vue.extend
     .done (res)=> @.$data.urls = _.uniq res.reverse()
   methods:
     choose: (v)->
-      socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
+      if v.$el.className.match /^preview$/
+        socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
+        v.$el.classList.add 'choose'
     more: ->
       @.$data.page += 1
       $.ajax
