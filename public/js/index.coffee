@@ -82,6 +82,7 @@ main = new Vue
 
 router = new Router
   '': -> main.current = 'top'
+  'top':    -> main.current = 'top'
   'upload': -> main.current = 'upload'
   'jockey': -> main.current = 'jockey'
   'select': -> main.current = 'select'
@@ -93,3 +94,6 @@ socket.on 'added', (url)->
 
 socket.on 'bpm', (bpm)->
   main.$.view.$data.bpm = bpm
+
+$('header').on 'click', ->
+  main.$.view.$destroy()

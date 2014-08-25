@@ -12,7 +12,7 @@ block scripts
   script(src='/socket.io/socket.io.js', type='text/javascript')
 
 block body
-  a(href='#')
+  a(href='#top')
     header GJ
   .buttons
     .current(v-view='current', v-ref='view')
@@ -41,7 +41,7 @@ block body
     .more(v-on='click: more(this)', v-show='showMore') more
 
   script(id='bpm', type='x-template')
-    .bpm(v-on='click: measure(this)') {{bpm}}
+    .bpm.field(v-on='click: measure(this)') {{bpm}}
       p (tap here)
 
   script(src='/js/index.js', type='text/javascript')
