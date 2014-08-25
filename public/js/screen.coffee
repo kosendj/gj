@@ -1,4 +1,49 @@
 socket = io()
+effects = [
+  {
+    name: 'grayscale'
+    values: [1..100]
+    unit: '%'
+  }
+  {
+    name: 'sepia'
+    values: [1..100]
+    unit: '%'
+  }
+  {
+    name: 'invert'
+    values: [60..100]
+    unit: '%'
+  }
+  {
+    name: 'saturate'
+    values: [1..100]
+    unit: ''
+  }
+  {
+    name: 'hue-rotate'
+    values: [0..360]
+    unit: 'deg'
+  }
+  {
+    name: 'brightness'
+    values: [130..200]
+    unit: '%'
+  }
+  {
+    name: 'contrast'
+    values: [130..200]
+    unit: '%'
+  }
+]
+
+filterMaker = ->
+  result = ''
+  for effect in effects
+    if Math.random() < 0.16
+      result += "#{effect.name}(#{effect.values[Math.floor(Math.random()*effect.values.length)]}#{effect.unit}) "
+  console.log result
+  result
 
 change = ->
   $gifs = $('.gif')
@@ -7,6 +52,7 @@ change = ->
   target = Math.floor(Math.random() * $gifs.length)
   $(".gif:eq(#{target})").css
     opacity: 1
+    webkitFilter: filterMaker()
   setTimeout change, (main.$data.bpm / 60) * 1000
 
 main = new Vue
