@@ -54,6 +54,26 @@ change = ->
     webkitFilter: filterMaker()
   setTimeout change, (main.$data.bpm / 60) * 1000
 
+interrupt = (url)->
+  main.$set 'lock', true
+  main.$set 'urls', [url]
+  setTimeout ->
+    main.$set 'lock', false
+    main.update()
+  , 20000
+
+commentAdd = (body)->
+  top = $('.comment').length * 40
+  top -= $('.commentContainer').height() while top > $('.commentContainer').height()
+  $("<p class=\'comment\'>#{body}</p>").appendTo $('.commentContainer')
+    .css
+      top: "#{top}px"
+    .transition
+      left: "-#{$('.commentContainer').width()}px"
+      duration: 10000
+      easing: 'linear'
+      complete: -> $(@).remove()
+
 main = new Vue
   el: '.container'
   template: '#gifs'
@@ -79,10 +99,5 @@ main = new Vue
 socket.on 'added',  -> if !main.$get('lock') then main.update()
 socket.on 'choose', -> if !main.$get('lock') then main.update()
 socket.on 'bpm', (bpm)-> main.$data.bpm = bpm
-socket.on 'djadded', (url)->
-  main.$set 'lock', true
-  main.$set 'urls', [url]
-  setTimeout ->
-    main.$set 'lock', false
-    main.update()
-  , 20000
+socket.on 'djadded', interrupt
+socket.on 'comment', commentAdd

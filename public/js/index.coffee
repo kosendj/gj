@@ -12,7 +12,7 @@ Vue.component 'upload', Vue.extend
         when '#dj'     then 'djupload'
         else null
 
-      if event? and @.$data.url.length > 0
+      if event? and @.$data.url.length > 0 and @.$data.status is 'send'
         socket.emit event, @.$data.url
         @.$data.status = 'done'
         setTimeout =>
@@ -83,6 +83,21 @@ Vue.component 'bpm', Vue.extend
         else
           @.$data.count += 1
 
+Vue.component 'comment', Vue.extend
+  template: '#comment'
+  data:
+    commentBody: ''
+    status: 'send'
+  methods:
+    send: ->
+      if @.$data.status is 'send'
+        socket.emit 'comment', @.$data.commentBody
+        @.$data.status = 'done'
+        setTimeout =>
+          @.$data.status = 'send'
+          @.$data.commentBody = ''
+        , 2000
+
 main = new Vue
   el: '.buttons'
   data:
@@ -96,6 +111,7 @@ router = new Router
   'select': -> main.current = 'select'
   'bpm':    -> main.current = 'bpm'
   'dj':     -> main.current = 'upload'
+  'comment':-> main.current = 'comment'
 router.init()
 
 socket.on 'added', (url)->

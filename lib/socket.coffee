@@ -24,3 +24,6 @@ module.exports = (socket)->
   socket.on 'bpm', (bpm)->
     update bpm
     io.emit 'bpm', bpm
+
+  socket.on 'comment', (body)->
+    io.emit 'comment', body

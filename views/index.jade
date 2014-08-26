@@ -22,6 +22,8 @@ block body
       p Upload
     a.request.button(href='#jockey')
       p Jockey
+    a.comment.button(href='#comment')
+      p Comment
 
   script(id='upload', type='x-template')
     .url.button
@@ -43,5 +45,11 @@ block body
   script(id='bpm', type='x-template')
     .bpm.field(v-on='click: measure(this)') {{bpm}}
       p (tap here)
+
+  script(id='comment', type='x-template')
+    .commentBody.button
+      textarea(placeholder='GJ部最高', v-model='commentBody', autofocus)
+    .send.button(v-on='click: send(this)')
+      p {{status}}
 
   script(src='/js/index.js', type='text/javascript')
