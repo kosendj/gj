@@ -60,6 +60,7 @@ main = new Vue
   data:
     urls: []
     bpm: 120
+    lock: false
   ready: ->
     @update -> change()
     $.ajax
@@ -75,6 +76,13 @@ main = new Vue
         @.$data.urls = res
         if cb? then cb()
 
-socket.on 'added',  -> main.update()
-socket.on 'choose', -> main.update()
+socket.on 'added',  -> if !main.$get('lock') then main.update()
+socket.on 'choose', -> if !main.$get('lock') then main.update()
 socket.on 'bpm', (bpm)-> main.$data.bpm = bpm
+socket.on 'djadded', (url)->
+  main.$set 'lock', true
+  main.$set 'urls', [url]
+  setTimeout ->
+    main.$set 'lock', false
+    main.update()
+  , 20000

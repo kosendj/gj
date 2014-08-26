@@ -7,12 +7,18 @@ Vue.component 'upload', Vue.extend
   template: '#upload'
   methods:
     send: ->
-      socket.emit 'upload', @.$data.url
-      @.$data.status = 'done'
-      setTimeout =>
-        @.$data.status = 'send'
-        @.$data.url = ''
-      , 2000
+      event = switch location.hash
+        when '#upload' then 'upload'
+        when '#dj'     then 'djupload'
+        else null
+
+      if event? and @.$data.url.length > 0
+        socket.emit event, @.$data.url
+        @.$data.status = 'done'
+        setTimeout =>
+          @.$data.status = 'send'
+          @.$data.url = ''
+        , 2000
   data:
     url: ''
     status: 'send'
@@ -89,6 +95,7 @@ router = new Router
   'jockey': -> main.current = 'jockey'
   'select': -> main.current = 'select'
   'bpm':    -> main.current = 'bpm'
+  'dj':     -> main.current = 'upload'
 router.init()
 
 socket.on 'added', (url)->
