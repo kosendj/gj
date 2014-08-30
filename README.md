@@ -7,7 +7,9 @@ You are GIF JOCKEY!!!!
 
 * node.js (latest recommend)
 * Redis (Redis to go only for now)
-* (heroku deploiable)
+* (heroku deployable)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ## Install
 
