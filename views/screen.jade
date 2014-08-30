@@ -17,4 +17,6 @@ block body
   script(id='gifs', type='x-template')
     .gif(v-repeat='urls')
       x-gif(src='/gifs/retrieve?url={{$value}}', bpm='{{bpm}}')
+    .name
+      p {{name}}
   script(src='/js/screen.js', type='text/javascript')

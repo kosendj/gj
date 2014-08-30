@@ -10,6 +10,7 @@ Vue.component 'upload', Vue.extend
       event = switch location.hash
         when '#upload' then 'upload'
         when '#dj'     then 'djupload'
+        when '#name'   then 'name'
         else null
 
       if event? and @.$data.url.length > 0 and @.$data.status is 'send'
@@ -112,6 +113,7 @@ router = new Router
   'bpm':    -> main.current = 'bpm'
   'dj':     -> main.current = 'upload'
   'comment':-> main.current = 'comment'
+  'name':   -> main.current = 'upload'
 router.init()
 
 socket.on 'added', (url)->

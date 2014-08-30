@@ -27,3 +27,6 @@ module.exports = (socket)->
 
   socket.on 'comment', (body)->
     io.emit 'comment', body
+
+  socket.on 'name', (name)->
+    io.emit 'name', name

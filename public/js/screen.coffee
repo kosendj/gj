@@ -81,6 +81,7 @@ main = new Vue
     urls: []
     bpm: 120
     lock: false
+    name: ''
   ready: ->
     @update -> change()
     $.ajax
@@ -101,3 +102,4 @@ socket.on 'choose', -> if !main.$get('lock') then main.update()
 socket.on 'bpm', (bpm)-> main.$data.bpm = bpm
 socket.on 'djadded', interrupt
 socket.on 'comment', commentAdd
+socket.on 'name', (name)-> main.$data.name = name
