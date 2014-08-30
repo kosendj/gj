@@ -9,6 +9,8 @@ You are GIF JOCKEY!!!!
 * Redis (Redis to go only for now)
 * (heroku deployable)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Install
 
 ```

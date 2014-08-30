@@ -1,0 +1,14 @@
+{
+    "name": "gjbu",
+    "description": "You are GIF JOCKEY!!!!",
+    "keywords": [
+        "gif",
+        "Visual Jockey"
+    ],
+    "website": "https://github.com/kosendj/gj",
+    "repository": "https://github.com/kosendj/gj",
+    "success_url": "/",
+    "addons": [
+        "redistogo"
+    ]
+}
