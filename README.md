@@ -1,6 +1,8 @@
 GJ(bu)
 ====
 
+[![Dependency Status](https://david-dm.org/kosendj/gj.svg?style=flat)](https://david-dm.org/kosendj/gj)
+
 You are GIF JOCKEY!!!!
 
 ## Requirement
