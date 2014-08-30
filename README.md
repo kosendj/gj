@@ -7,7 +7,7 @@ You are GIF JOCKEY!!!!
 
 * node.js (latest recommend)
 * Redis (Redis to go only for now)
-* (heroku deploiable)
+* (heroku deployable)
 
 ## Install
 
