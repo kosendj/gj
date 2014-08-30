@@ -5,6 +5,14 @@ GJ(bu)
 
 You are GIF JOCKEY!!!!
 
+![](http://g.recordit.co/zLmn6ABDb3.gif)
+
+↓ Select ↓
+
+↓ Realtime Sync ↓
+
+![](http://g.recordit.co/I0Z2PJFo2j.gif)
+
 ## Requirement
 
 * node.js (latest recommend)
