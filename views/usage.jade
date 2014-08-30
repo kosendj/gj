@@ -1,4 +1,51 @@
 extends layout
 
+block links
+  link(href='/css/usage.css', rel='stylesheet', type='text/css')
+
 block body
-  h1 It works
+  header 使い方
+  article
+    section
+      h1 GJ(bu)について
+      p GJ(bu)はクラブイベントのVJをパーリィピーポーの皆さんと創りあげていくソーシャルVJアプリケーションです。最高の画像テクノロジーである「gif」を使ってVJができます。
+      p だいたいのことがリアルタイムにできるようになっているので、いろいろ試してみてください。
+
+    section
+      h1 トップページ
+      img(src='//g.recordit.co/jBYQMyy6SX.gif')
+      p トップページでは
+      ul
+        li GIFのアップロード
+        li VJ行為
+        li コメント
+      p ができます。
+      p どこのページにいても、「GJ」と書いてあるヘッダーをタップすることでトップページに戻ることができます。
+
+    section
+      h1 アップロード
+      img(src='//g.recordit.co/rLiVS77U3N.gif')
+      p アップロードページではGIFのアップロードができます。アップロードといっても、GJ(bu)では実際にGIFを保持するのがめんどくさかったのでGIFがあるURLを入力することをアップロードと呼んでいます。すいません。
+      p パーリィピーポーの皆さんのハイパーインターネットテクニックでファッキンオーサムなGIFを探しだしてそのURLを入力して「Send」を押すと送信され、しばらくしたらスクリーンに表示されます。
+
+    section
+      h1 VJ行為
+      img(src='//g.recordit.co/SAcbqDhmVp.gif')
+      p VJ行為はGIFを選択する「Select GIF」とBPMをイケイケミュージックに合わせる「BPM sync」があります。
+
+      h2 Select GIF
+      img(src='//g.recordit.co/zLmn6ABDb3.gif')
+      p 「Select GIF」では過去に誰かがアップロードしたGIFを閲覧することができます。その中からもう一度流したいGifをタップすると、チェックマークが付き、しばらくするとスクリーンに表示されます。
+
+      h2 BPM sync
+      img(src='//g.recordit.co/EMJEtEbV7h.gif')
+      p 「BPM sync」では画面を拍子に合わせてタップすることでBPMを測定し、そのBPMでVJ行為できるようになる機能です。なんとなくそれっぽいBPMになるように調整しましたが、結構微妙なBPMになったりするので勘弁してください。
+
+    section
+      h1 コメント
+      img(src='//g.recordit.co/H0ptBzsCQU.gif')
+      p 面白コメントをスクリーンに流してください！！！！！！！！
+
+  footer
+    a(href='/')
+      p トップへ戻る
