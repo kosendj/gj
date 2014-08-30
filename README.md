@@ -22,7 +22,11 @@ You are GIF JOCKEY!!!!
 
 ## Usage
 
-* TODO
+* for Users -> http://gjbu.herokuapp.com/usage ([Source](https://github.com/kosendj/gj/blob/master/views/usage.jade))
+* for DJs
+  * `/#dj` can interrupt GIF
+* for VJs
+  * `/#name` can display DJ name
 
 ## Licence
 
