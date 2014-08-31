@@ -41,4 +41,8 @@ app.get '/usage', (req, res)-> res.render 'usage'
 
 io.on 'connection', require './lib/socket'
 
-http.listen process.env.PORT || 3000
+port = if process.env.PORT
+         parseInt(process.env.PORT, 10)
+       else
+         3000
+http.listen port, -> console.log "Listening at port #{port}"
