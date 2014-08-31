@@ -43,5 +43,4 @@ port = if process.env.PORT
          parseInt(process.env.PORT, 10)
        else
          3000
-console.log("Listening at port #{port}")
-http.listen port
+http.listen port, -> console.log "Listening at port #{port}"
