@@ -14,12 +14,13 @@ Vue.component 'upload', Vue.extend
         else null
 
       if event? and @.$data.url.length > 0 and @.$data.status is 'send'
-        socket.emit event, @.$data.url
+        for url in @.$data.url.split(/\n/)
+          socket.emit event, url.trim()
         @.$data.status = 'done'
-        setTimeout =>
-          @.$data.status = 'send'
-          @.$data.url = ''
-        , 2000
+      setTimeout =>
+        @.$data.status = 'send'
+        @.$data.url = ''
+      , 2000
   data:
     url: ''
     status: 'send'
