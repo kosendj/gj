@@ -36,6 +36,7 @@ You are GIF JOCKEY!!!!
 * for DJs
   * `/#dj` can interrupt GIF
 * for VJs
+  * `/screen` is VJ screen
   * `/#name` can display DJ name
 
 ## Licence
