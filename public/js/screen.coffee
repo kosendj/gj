@@ -57,10 +57,22 @@ change = ->
 interrupt = (url)->
   main.$set 'lock', true
   main.$set 'urls', [url]
+
+  url_hashes = url.split(/#/)
+  duration = 20000
+  if 1 < url_hashes.length && url_hashes[url_hashes.length-1]
+    hash = url_hashes[url_hashes.length-1]
+    params = hash.split(/:/)
+
+    dur = parseInt(params[0], 10)
+    if 0 < dur
+      duration = dur
+
+  console.log("Interrupt #{url}, duration:#{duration}")
   setTimeout ->
     main.$set 'lock', false
     main.update()
-  , 20000
+  , duration
 
 commentAdd = (body)->
   top = $('.comment').length * 40
