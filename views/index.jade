@@ -47,6 +47,16 @@ block body
   script(id='bpm', type='x-template')
     .bpm.field(v-on='click: measure(this)') {{bpm}}
       p (tap here)
+    a.bpmManual.button(href='#bpm-manual')
+      p set manually
+
+
+  script(id='bpm-manual', type='x-template')
+    .bpmManual.button
+      p
+        input(placeholder='230(bpm)', v-model='bpm', autofocus, inputmode='numeric')
+    .send.button(v-on='click: send(this)')
+      p {{status}}
 
   script(id='comment', type='x-template')
     .commentBody.button

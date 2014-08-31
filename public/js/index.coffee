@@ -99,18 +99,42 @@ Vue.component 'comment', Vue.extend
           @.$data.commentBody = ''
         , 2000
 
+Vue.component 'bpm-manual', Vue.extend
+  template: '#bpm-manual'
+  data:
+    bpm: ''
+    status: 'set'
+  ready: ->
+    $.ajax
+      type: 'GET'
+      url: '/bpm'
+    .done (res)=> @.$data.bpm = parseInt res
+  methods:
+    send: ->
+      if @.$data.status is 'set'
+        bpm = parseInt(@.$data.bpm, 10)
+        if 0 < bpm
+          socket.emit 'bpm', bpm
+          @.$data.status = 'done'
+          setTimeout =>
+            @.$data.status = 'set'
+            location.hash = 'bpm'
+          , 1000
+
+
+
 main = new Vue
   el: '.buttons'
   data:
     current: 'top'
 
 router = new Router
-  '': -> main.current = 'top'
   'top':    -> main.current = 'top'
   'upload': -> main.current = 'upload'
   'jockey': -> main.current = 'jockey'
   'select': -> main.current = 'select'
   'bpm':    -> main.current = 'bpm'
+  'bpm-manual':    -> main.current = 'bpm-manual'
   'dj':     -> main.current = 'upload'
   'comment':-> main.current = 'comment'
   'name':   -> main.current = 'upload'
