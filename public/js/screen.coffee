@@ -65,7 +65,9 @@ interrupt = (url)->
 commentAdd = (body)->
   top = $('.comment').length * 40
   top -= $('.commentContainer').height() while top > $('.commentContainer').height()
-  $("<p class=\'comment\'>#{body}</p>").appendTo $('.commentContainer')
+  $("<p>").text(body)
+    .addClass('comment')
+    .appendTo $('.commentContainer')
     .css
       top: "#{top}px"
     .transition
