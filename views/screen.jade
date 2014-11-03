@@ -7,12 +7,16 @@ block links
 block scripts
   script(src='//cdnjs.cloudflare.com/ajax/libs/vue/0.10.5/vue.min.js', type='text/javascript')
   script(src='//code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.9/jquery.transit.min.js', type='text/javascript')
   script(src='/socket.io/socket.io.js', type='text/javascript')
 
 block body
   .container
+  .commentContainer
 
   script(id='gifs', type='x-template')
     .gif(v-repeat='urls')
-      x-gif(src='/gifs/retrieve?url={{$value}}', bpm='{{bpm}}')
+      x-gif(src='/gifs/retrieve/{{$value}}', bpm='{{bpm}}')
+    .name
+      p {{name}}
   script(src='/js/screen.js', type='text/javascript')

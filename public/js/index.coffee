@@ -7,8 +7,16 @@ Vue.component 'upload', Vue.extend
   template: '#upload'
   methods:
     send: ->
-      socket.emit 'upload', @.$data.url
-      @.$data.status = 'done'
+      event = switch location.hash
+        when '#upload' then 'upload'
+        when '#dj'     then 'djupload'
+        when '#name'   then 'name'
+        else null
+
+      if event? and @.$data.url.length > 0 and @.$data.status is 'send'
+        for url in @.$data.url.split(/\n/)
+          socket.emit event, url.trim()
+        @.$data.status = 'done'
       setTimeout =>
         @.$data.status = 'send'
         @.$data.url = ''
@@ -33,14 +41,16 @@ Vue.component 'select', Vue.extend
     .done (res)=> @.$data.urls = _.uniq res.reverse()
   methods:
     choose: (v)->
-      socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
+      if v.$el.className.match /^preview$/
+        socket.emit 'choose', v.$el.querySelector('img').getAttribute('src')
+        v.$el.classList.add 'choose'
     more: ->
       @.$data.page += 1
       $.ajax
         type: 'GET'
         url: "/gifs?page=#{@.$data.page}"
       .done (res)=>
-        if res.length is 0
+        if res.length < 10
           @.$data.showMore = false
         for url in _.uniq(res.reverse())
           @.$data.urls.push url
@@ -75,17 +85,60 @@ Vue.component 'bpm', Vue.extend
         else
           @.$data.count += 1
 
+Vue.component 'comment', Vue.extend
+  template: '#comment'
+  data:
+    commentBody: ''
+    status: 'send'
+  methods:
+    send: ->
+      if @.$data.status is 'send'
+        socket.emit 'comment', @.$data.commentBody
+        @.$data.status = 'done'
+        setTimeout =>
+          @.$data.status = 'send'
+          @.$data.commentBody = ''
+        , 2000
+
+Vue.component 'bpm-manual', Vue.extend
+  template: '#bpm-manual'
+  data:
+    bpm: ''
+    status: 'set'
+  ready: ->
+    $.ajax
+      type: 'GET'
+      url: '/bpm'
+    .done (res)=> @.$data.bpm = parseInt res
+  methods:
+    send: ->
+      if @.$data.status is 'set'
+        bpm = parseInt(@.$data.bpm, 10)
+        if 0 < bpm
+          socket.emit 'bpm', bpm
+          @.$data.status = 'done'
+          setTimeout =>
+            @.$data.status = 'set'
+            location.hash = 'bpm'
+          , 1000
+
+
+
 main = new Vue
   el: '.buttons'
   data:
     current: 'top'
 
 router = new Router
-  '': -> main.current = 'top'
+  'top':    -> main.current = 'top'
   'upload': -> main.current = 'upload'
   'jockey': -> main.current = 'jockey'
   'select': -> main.current = 'select'
   'bpm':    -> main.current = 'bpm'
+  'bpm-manual':    -> main.current = 'bpm-manual'
+  'dj':     -> main.current = 'upload'
+  'comment':-> main.current = 'comment'
+  'name':   -> main.current = 'upload'
 router.init()
 
 socket.on 'added', (url)->
@@ -93,3 +146,6 @@ socket.on 'added', (url)->
 
 socket.on 'bpm', (bpm)->
   main.$.view.$data.bpm = bpm
+
+$('header').on 'click', ->
+  main.$.view.$destroy()

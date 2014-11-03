@@ -12,7 +12,7 @@ block scripts
   script(src='/socket.io/socket.io.js', type='text/javascript')
 
 block body
-  a(href='#')
+  a(href='#top')
     header GJ
   .buttons
     .current(v-view='current', v-ref='view')
@@ -22,6 +22,10 @@ block body
       p Upload
     a.request.button(href='#jockey')
       p Jockey
+    a.comment.button(href='#comment')
+      p Comment
+    a.usage.button(href='/usage')
+      p 使い方
 
   script(id='upload', type='x-template')
     .url.button
@@ -41,7 +45,23 @@ block body
     .more(v-on='click: more(this)', v-show='showMore') more
 
   script(id='bpm', type='x-template')
-    .bpm(v-on='click: measure(this)') {{bpm}}
+    .bpm.field(v-on='click: measure(this)') {{bpm}}
       p (tap here)
+    a.bpmManual.button(href='#bpm-manual')
+      p set manually
+
+
+  script(id='bpm-manual', type='x-template')
+    .bpmManual.button
+      p
+        input(placeholder='230(bpm)', v-model='bpm', autofocus, inputmode='numeric')
+    .send.button(v-on='click: send(this)')
+      p {{status}}
+
+  script(id='comment', type='x-template')
+    .commentBody.button
+      textarea(placeholder='GJ部最高', v-model='commentBody', autofocus)
+    .send.button(v-on='click: send(this)')
+      p {{status}}
 
   script(src='/js/index.js', type='text/javascript')

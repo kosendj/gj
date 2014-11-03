@@ -1,5 +1,7 @@
 html, body, .buttons, .current
+  max-width 640px
   height 100%
+  margin 0 auto
 
 body
   background-color #007CE0
@@ -18,7 +20,7 @@ header
   color #f8f8f8
   line-height 66px
 
-.upload.button, .request.button, .url.button, .send.button, .gif.button, .bpm.button
+.upload.button, .request.button, .url.button, .send.button, .gif.button, .bpm.button, .comment.button, .commentBody.button, .usage.button, .bpmManual.button
   height 40%
   color #262626
   display block
@@ -36,7 +38,7 @@ header
     transform translateY(-50%)
     font-size 32px
 
-  textarea
+  textarea, input
     margin 0
     padding 0
     width 100%
@@ -44,11 +46,19 @@ header
     font-size 32px
     border 0
 
+
+.usage.button
+  background-color #FA9800
+  height 10%
+
 .upload.button
   background-color #5AA4DF
 
 .request.button
   background-color #B8DFFF
+
+.comment.button
+  background-color #f4baff
 
 .send.button
   background-color #FCE1B8
@@ -66,9 +76,28 @@ header
   img
     width 100%
 
-.bpm
+.choose
+  margin-bottom -30px
+  background-color #000
+
+  &:before
+    display block
+    content '✔'
+    font-size 96px
+    color #FFF
+    position relative
+    top 30px
+    line-height 30px
+    z-index 1
+
+  img
+    position relative
+    top -30px
+    opacity 0.4
+
+.bpm.field
   width 100%
-  height 100%
+  height 300px
   text-align center
   padding-top 20%
   font-size 82px
