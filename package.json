@@ -1,6 +1,6 @@
 {
   "name": "gj",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "gif jockey GJ!!!!",
   "main": "index.coffee",
   "scripts": {
