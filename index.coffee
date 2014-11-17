@@ -40,6 +40,7 @@ app.get '/bpm', require('./lib/bpm').get
 app.get '/usage', (req, res)-> res.render 'usage'
 
 io.on 'connection', require './lib/socket'
+require './lib/twitter'
 
 port = if process.env.PORT
          parseInt(process.env.PORT, 10)

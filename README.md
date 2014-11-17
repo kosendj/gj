@@ -30,6 +30,17 @@ You are GIF JOCKEY!!!!
 % foreman start
 ```
 
+## Configuation
+
+```
+REDISTOGO_URL=...
+CONSUMER_KEY=...
+CONSUMER_SECRET=...
+ACCESS_TOKEN=...
+ACCESS_TOKEN_SECRET=...
+HASH_TAG=#kosendj
+```
+
 ## Usage
 
 * for Users -> http://gjbu.herokuapp.com/usage ([Source](https://github.com/kosendj/gj/blob/master/views/usage.jade))
