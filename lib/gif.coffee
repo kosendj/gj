@@ -1,6 +1,26 @@
 async   = require 'async'
 request = require 'request'
 {Magic} = require 'mmmagic'
+io      = process.globals.io
+
+check = (url, callback)->
+  async.waterfall [
+    (cb)->
+      request
+        url: url
+        encoding: null
+      , (err, res, body)-> cb err, body
+
+    (body, cb)->
+      magic = new Magic()
+      magic.detect body, (err, mime)-> cb err, mime
+
+    (mime, cb)->
+      if mime?.match /^GIF/
+        cb null, true
+      else
+        cb null, false
+  ], (err, res)-> callback err, res
 
 exports.index = (req, res)->
   if req.query.page?
@@ -8,6 +28,18 @@ exports.index = (req, res)->
   else
     page = -1
   process.globals.redis.lrange 'gifs', page - 9, page, (err, reply)-> res.json reply
+
+exports.add = (req, res)->
+  {add} = require './queue'
+  event = if req.body.dj is 'true' then 'djadded' else 'added'
+  if req.body.urls?
+    if req.body.urls.forEach?
+      req.body.urls.forEach (url)->
+        check url, (err, r)->
+          if r
+            add url
+            io.emit event, url
+  res.send 'ok'
 
 exports.retrieve = (req, res)->
   url = req.params[0]
@@ -29,22 +61,3 @@ exports.retrieve = (req, res)->
     pres.on 'data', (chunk) ->
       res.write chunk, 'binary'
     pres.on 'end', -> res.end()
-
-exports.check = (url, callback)->
-  async.waterfall [
-    (cb)->
-      request
-        url: url
-        encoding: null
-      , (err, res, body)-> cb err, body
-
-    (body, cb)->
-      magic = new Magic()
-      magic.detect body, (err, mime)-> cb err, mime
-
-    (mime, cb)->
-      if mime?.match /^GIF/
-        cb null, true
-      else
-        cb null, false
-  ], (err, res)-> callback err, res

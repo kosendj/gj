@@ -7,19 +7,19 @@ Vue.component 'upload', Vue.extend
   template: '#upload'
   methods:
     send: ->
-      event = switch location.hash
-        when '#upload' then 'upload'
-        when '#dj'     then 'djupload'
-        else null
-
-      if event? and @.$data.url.length > 0 and @.$data.status is 'send'
-        for url in @.$data.url.split(/\n/)
-          socket.emit event, url.trim()
+      @.$data.status = 'sending...'
+      $.ajax
+        type: 'POST'
+        url: '/gifs'
+        data:
+          urls: @.$data.url.split('\n').map (url)-> url.trim()
+          dj: if location.hash is '#dj' then 'true' else 'false'
+      .done =>
         @.$data.status = 'done'
-      setTimeout =>
-        @.$data.status = 'send'
-        @.$data.url = ''
-      , 2000
+        setTimeout =>
+          @.$data.status = 'send'
+          @.$data.url = ''
+        , 2000
   data:
     url: ''
     status: 'send'
