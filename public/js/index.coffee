@@ -10,7 +10,6 @@ Vue.component 'upload', Vue.extend
       event = switch location.hash
         when '#upload' then 'upload'
         when '#dj'     then 'djupload'
-        when '#name'   then 'name'
         else null
 
       if event? and @.$data.url.length > 0 and @.$data.status is 'send'
@@ -24,6 +23,7 @@ Vue.component 'upload', Vue.extend
   data:
     url: ''
     status: 'send'
+    placeholder: 'http://...'
 
 Vue.component 'jockey', Vue.extend
   template: '#jockey'
@@ -122,7 +122,24 @@ Vue.component 'bpm-manual', Vue.extend
             location.hash = 'bpm'
           , 1000
 
-
+Vue.component 'name', Vue.extend
+  template: '#upload'
+  methods:
+    send: ->
+      @.$data.status = 'sending...'
+      $.ajax
+        type: 'POST'
+        url: '/name'
+        data:
+          name: @.$data.url
+      .done (res)=>
+        setTimeout =>
+          @.$data.status = 'send'
+        , 1000
+  data:
+    url: ''
+    status: 'send'
+    placeholder: 'Enter DJ name'
 
 main = new Vue
   el: '.buttons'
@@ -138,7 +155,7 @@ router = new Router
   'bpm-manual':    -> main.current = 'bpm-manual'
   'dj':     -> main.current = 'upload'
   'comment':-> main.current = 'comment'
-  'name':   -> main.current = 'upload'
+  'name':   -> main.current = 'name'
 router.init()
 
 socket.on 'added', (url)->

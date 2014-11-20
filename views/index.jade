@@ -29,7 +29,7 @@ block body
 
   script(id='upload', type='x-template')
     .url.button
-      textarea(placeholder='http://...', v-model='url', autofocus)
+      textarea(v-model='url', v-attr='placeholder: placeholder', autofocus)
     .send.button(v-on='click: send(this)')
       p {{status}}
 

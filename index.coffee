@@ -38,6 +38,7 @@ app.get /^\/gifs\/retrieve\/(.+)$/, require('./lib/gif').retrieve
 app.get '/screen', (req, res)-> res.render 'screen'
 app.get '/bpm', require('./lib/bpm').get
 app.get '/usage', (req, res)-> res.render 'usage'
+app.post '/name', require('./lib/screen').name
 
 io.on 'connection', require './lib/socket'
 require './lib/twitter'
