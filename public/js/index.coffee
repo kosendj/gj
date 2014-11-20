@@ -85,21 +85,6 @@ Vue.component 'bpm', Vue.extend
         else
           @.$data.count += 1
 
-Vue.component 'comment', Vue.extend
-  template: '#comment'
-  data:
-    commentBody: ''
-    status: 'send'
-  methods:
-    send: ->
-      if @.$data.status is 'send'
-        socket.emit 'comment', @.$data.commentBody
-        @.$data.status = 'done'
-        setTimeout =>
-          @.$data.status = 'send'
-          @.$data.commentBody = ''
-        , 2000
-
 Vue.component 'bpm-manual', Vue.extend
   template: '#bpm-manual'
   data:
@@ -154,7 +139,6 @@ router = new Router
   'bpm':    -> main.current = 'bpm'
   'bpm-manual':    -> main.current = 'bpm-manual'
   'dj':     -> main.current = 'upload'
-  'comment':-> main.current = 'comment'
   'name':   -> main.current = 'name'
 router.init()
 
