@@ -74,10 +74,10 @@ interrupt = (url)->
     main.update()
   , duration
 
-commentAdd = (body)->
+tweetAdd = (tweet)->
   top = $('.comment').length * 40
   top -= $('.commentContainer').height() while top > $('.commentContainer').height()
-  $("<p>").text(body)
+  $("<p>").text(tweet.text)
     .addClass('comment')
     .appendTo $('.commentContainer')
     .css
@@ -115,5 +115,5 @@ socket.on 'added',  -> if !main.$get('lock') then main.update()
 socket.on 'choose', -> if !main.$get('lock') then main.update()
 socket.on 'bpm', (bpm)-> main.$data.bpm = bpm
 socket.on 'djadded', interrupt
-socket.on 'comment', commentAdd
+socket.on 'tweet', tweetAdd
 socket.on 'name', (name)-> main.$data.name = name

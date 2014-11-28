@@ -33,13 +33,16 @@ app.use express.static("#{__dirname}/public")
 
 app.get '/', (req, res)-> res.render 'index'
 app.get '/gifs', require('./lib/gif').index
+app.post '/gifs', require('./lib/gif').add
 app.get '/gifs/queue', require('./lib/queue').index
 app.get /^\/gifs\/retrieve\/(.+)$/, require('./lib/gif').retrieve
 app.get '/screen', (req, res)-> res.render 'screen'
 app.get '/bpm', require('./lib/bpm').get
 app.get '/usage', (req, res)-> res.render 'usage'
+app.post '/name', require('./lib/screen').name
 
 io.on 'connection', require './lib/socket'
+require './lib/twitter'
 
 port = if process.env.PORT
          parseInt(process.env.PORT, 10)

@@ -7,23 +7,23 @@ Vue.component 'upload', Vue.extend
   template: '#upload'
   methods:
     send: ->
-      event = switch location.hash
-        when '#upload' then 'upload'
-        when '#dj'     then 'djupload'
-        when '#name'   then 'name'
-        else null
-
-      if event? and @.$data.url.length > 0 and @.$data.status is 'send'
-        for url in @.$data.url.split(/\n/)
-          socket.emit event, url.trim()
+      @.$data.status = 'sending...'
+      $.ajax
+        type: 'POST'
+        url: '/gifs'
+        data:
+          urls: @.$data.url.split('\n').map (url)-> url.trim()
+          dj: if location.hash is '#dj' then 'true' else 'false'
+      .done =>
         @.$data.status = 'done'
-      setTimeout =>
-        @.$data.status = 'send'
-        @.$data.url = ''
-      , 2000
+        setTimeout =>
+          @.$data.status = 'send'
+          @.$data.url = ''
+        , 2000
   data:
     url: ''
     status: 'send'
+    placeholder: 'http://...'
 
 Vue.component 'jockey', Vue.extend
   template: '#jockey'
@@ -85,21 +85,6 @@ Vue.component 'bpm', Vue.extend
         else
           @.$data.count += 1
 
-Vue.component 'comment', Vue.extend
-  template: '#comment'
-  data:
-    commentBody: ''
-    status: 'send'
-  methods:
-    send: ->
-      if @.$data.status is 'send'
-        socket.emit 'comment', @.$data.commentBody
-        @.$data.status = 'done'
-        setTimeout =>
-          @.$data.status = 'send'
-          @.$data.commentBody = ''
-        , 2000
-
 Vue.component 'bpm-manual', Vue.extend
   template: '#bpm-manual'
   data:
@@ -122,7 +107,24 @@ Vue.component 'bpm-manual', Vue.extend
             location.hash = 'bpm'
           , 1000
 
-
+Vue.component 'name', Vue.extend
+  template: '#upload'
+  methods:
+    send: ->
+      @.$data.status = 'sending...'
+      $.ajax
+        type: 'POST'
+        url: '/name'
+        data:
+          name: @.$data.url
+      .done (res)=>
+        setTimeout =>
+          @.$data.status = 'send'
+        , 1000
+  data:
+    url: ''
+    status: 'send'
+    placeholder: 'Enter DJ name'
 
 main = new Vue
   el: '.buttons'
@@ -137,8 +139,7 @@ router = new Router
   'bpm':    -> main.current = 'bpm'
   'bpm-manual':    -> main.current = 'bpm-manual'
   'dj':     -> main.current = 'upload'
-  'comment':-> main.current = 'comment'
-  'name':   -> main.current = 'upload'
+  'name':   -> main.current = 'name'
 router.init()
 
 socket.on 'added', (url)->
