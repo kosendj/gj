@@ -36,6 +36,7 @@ effects = [
     unit: '%'
   }
 ]
+hasMidi = false
 
 filterMaker = ->
   result = ''
@@ -88,6 +89,19 @@ tweetAdd = (tweet)->
       easing: 'linear'
       complete: -> $(@).remove()
 
+midiController = (id, kind, value)->
+
+midiInit = ->
+  midi = new MIDI()
+  try
+    midi.init().then ->
+      hasMidi = true
+      kontrol = new nanoKONTROL()
+      kontrol.init midi, midiController
+    , null
+  catch err
+    console.log err
+
 main = new Vue
   el: '.container'
   template: '#gifs'
@@ -97,6 +111,7 @@ main = new Vue
     lock: false
     name: ''
   ready: ->
+    midiInit()
     @update -> change()
     $.ajax
       type: 'GET'
