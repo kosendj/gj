@@ -57,7 +57,7 @@ change = ->
 processUrls = (urls) ->
   for x in urls
     url = x.replace(/^https?:\/\/img\.sorah\.jp/, 'http://sorah-pub.s3.amazonaws.com')
-    if url.match(/^https?:\/\/(?:sorah-pub\.s3\.amazonaws\.com|192\.168|10\.)/)
+    if url.match(/^https?:\/\/(?:sorah-pub\.s3\.amazonaws\.com|192\.168|10\.|sorah-gif)/)
       url
     else
       "/gifs/retrieve/#{url}"

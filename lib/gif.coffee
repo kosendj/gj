@@ -4,6 +4,10 @@ request = require 'request'
 io      = process.globals.io
 
 check = (url, callback)->
+  if url.match(/^http:\/\/sorah-gif/)
+    callback(null, true)
+    return
+
   async.waterfall [
     (cb)->
       request
