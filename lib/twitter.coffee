@@ -1,4 +1,5 @@
 Twit = require 'twit'
+
 io = process.globals.io
 
 twitter = new Twit
@@ -9,9 +10,10 @@ twitter = new Twit
 
 replaceHashtag = new RegExp process.env.HASH_TAG, 'g'
 
-stream = twitter.stream 'statuses/filter',
-  track: process.env.HASH_TAG
+unless process.env.DISABLE_TWITTER == '1'
+  stream = twitter.stream 'statuses/filter',
+    track: process.env.HASH_TAG
 
-stream.on 'tweet', (tweet)->
-  io.emit 'tweet',
-    text: tweet.text.replace replaceHashtag, ''
+  stream.on 'tweet', (tweet)->
+    io.emit 'tweet',
+      text: tweet.text.replace replaceHashtag, ''
