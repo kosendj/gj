@@ -1,0 +1,3 @@
+[submodule "public/js/webmidi-test"]
+	path = public/js/webmidi-test
+	url = https://github.com/e-jigsaw/webmidi-test.git

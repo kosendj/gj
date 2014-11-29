@@ -44,7 +44,7 @@ filterMaker = ->
       result += "#{effect.name}(#{effect.values[Math.floor(Math.random()*effect.values.length)]}#{effect.unit}) "
   result
 
-change = ->
+autoEffect = ->
   $gifs = $('.gif')
   $gifs.css
     opacity: 0
@@ -52,7 +52,7 @@ change = ->
   $(".gif:eq(#{target})").css
     opacity: 1
     webkitFilter: filterMaker()
-  setTimeout change, (main.$data.bpm / 60) * 1000
+  setTimeout autoEffect, (main.$data.bpm / 60) * 1000
 
 processUrls = (urls) ->
   for x in urls
@@ -96,6 +96,23 @@ tweetAdd = (tweet)->
       easing: 'linear'
       complete: -> $(@).remove()
 
+midiController = (id, kind, value)->
+  switch kind
+    when 'SLIDER'
+      $(".gif:eq(#{id})").css
+        opacity: parseFloat(value / 128)
+
+midiInit = (callback)->
+  midi = new MIDI()
+  try
+    midi.init().then ->
+      kontrol = new nanoKONTROL()
+      kontrol.init midi, midiController
+      callback null
+    , null
+  catch err
+    callback err
+
 main = new Vue
   el: '.container'
   template: '#gifs'
@@ -105,7 +122,7 @@ main = new Vue
     lock: false
     name: ''
   ready: ->
-    @update -> change()
+    midiInit (err)=> @update -> if err? then autoEffect()
     $.ajax
       type: 'GET'
       url: '/bpm'
