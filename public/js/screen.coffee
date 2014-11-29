@@ -54,9 +54,17 @@ change = ->
     webkitFilter: filterMaker()
   setTimeout change, (main.$data.bpm / 60) * 1000
 
+processUrls = (urls) ->
+  for x in urls
+    url = x.replace(/^https?:\/\/img\.sorah\.jp/, 'http://sorah-pub.s3.amazonaws.com')
+    if url.match(/^https?:\/\/sorah-pub\.s3\.amazonaws\.com/)
+      url
+    else
+      "/gifs/retrieve/#{url}"
+
 interrupt = (url)->
   main.$set 'lock', true
-  main.$set 'urls', [url]
+  main.$set 'urls', processUrls([url])
 
   url_hashes = url.split(/#/)
   duration = 20000
@@ -108,7 +116,7 @@ main = new Vue
         type: 'GET'
         url: '/gifs/queue'
       .done (res)=>
-        @.$data.urls = res
+        @.$data.urls = processUrls(res)
         if cb? then cb()
 
 socket.on 'added',  -> if !main.$get('lock') then main.update()
