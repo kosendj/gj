@@ -14,9 +14,4 @@ block body
   .container
   .commentContainer
 
-  script(id='gifs', type='x-template')
-    .gif(v-repeat='urls')
-      x-gif(src='{{$value}}', bpm='{{bpm}}')
-    .name
-      p {{name}}
   script(src='/js/screen.js', type='text/javascript')

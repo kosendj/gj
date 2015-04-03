@@ -1,1 +1,1 @@
-web: ./node_modules/coffee-script/bin/coffee index.coffee
+web: ./node_modules/.bin/lsc index.ls
