@@ -1,7 +1,5 @@
 express = require 'express'
 bodyParser = require 'body-parser'
-stylus = require('stylus').middleware
-coffee = require 'coffee-middleware'
 app = express()
 
 http = require('http').Server app
@@ -25,11 +23,7 @@ process.globals.io = io
 app.set 'views', "#{__dirname}/views"
 app.set 'view engine', 'jade'
 app.use bodyParser.urlencoded({extended: true})
-app.use coffee
-  src: "#{__dirname}/public"
-app.use stylus
-  src: "#{__dirname}/public"
-app.use express.static("#{__dirname}/public")
+app.use express.static("#{__dirname}/build")
 
 app.get '/', (req, res)-> res.render 'index'
 app.get '/gifs', require('./lib/gif').index
