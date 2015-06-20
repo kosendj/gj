@@ -1,5 +1,6 @@
 STYLUS = ./node_modules/.bin/stylus
 COFFEE = ./node_modules/.bin/coffee
+LSC = ./node_modules/.bin/lsc
 
 all: css script
 
@@ -11,3 +12,4 @@ css: before
 
 script: before
 	@$(COFFEE) -co build/ src/*.coffee
+	@$(LSC) -co build/ src/*.ls

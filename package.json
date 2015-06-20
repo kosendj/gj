@@ -14,6 +14,7 @@
     "coffee-script": "^1.9.3",
     "express": "^4.12.4",
     "jade": "^1.11.0",
+    "livescript": "^1.4.0",
     "mmmagic": "^0.3.14",
     "neo-async": "^1.2.1",
     "redis": "^0.12.1",
