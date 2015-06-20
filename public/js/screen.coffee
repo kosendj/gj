@@ -48,10 +48,13 @@ change = ->
   $gifs = $('.gif')
   $gifs.css
     opacity: 0
-  target = Math.floor(Math.random() * $gifs.length)
-  $(".gif:eq(#{target})").css
-    opacity: 1
-    webkitFilter: filterMaker()
+  $loadedGifs = $gifs.filter (_, $el)->
+    $el.querySelector('x-gif').shadowRoot.querySelector('#frames').childNodes.length > 0
+  if $loadedGifs.length > 0
+    target = Math.floor(Math.random() * $loadedGifs.length)
+    $($loadedGifs[target]).css
+      opacity: 1
+      webkitFilter: filterMaker()
   setTimeout change, (main.$data.bpm / 60) * 1000
 
 processUrls = (urls) ->
