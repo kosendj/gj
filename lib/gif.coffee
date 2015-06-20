@@ -1,4 +1,4 @@
-async   = require 'async'
+async   = require 'neo-async'
 request = require 'request'
 {Magic} = require 'mmmagic'
 io      = process.globals.io

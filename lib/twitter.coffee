@@ -12,7 +12,7 @@ replaceHashtag = new RegExp process.env.HASH_TAG, 'g'
 
 unless process.env.DISABLE_TWITTER == '1'
   stream = twitter.stream 'statuses/filter',
-    track: process.env.HASH_TAG
+    track: "##{process.env.HASH_TAG}"
 
   stream.on 'tweet', (tweet)->
     io.emit 'tweet',
