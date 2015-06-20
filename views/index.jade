@@ -2,7 +2,7 @@ extends layout
 
 block links
   link(href='http://fonts.googleapis.com/css?family=Syncopate:700', rel='stylesheet', type='text/css')
-  link(href='/css/index.css', rel='stylesheet', type='text/css')
+  link(href='/index.css', rel='stylesheet', type='text/css')
 
 block scripts
   script(src='//cdnjs.cloudflare.com/ajax/libs/vue/0.10.5/vue.min.js', type='text/javascript')
@@ -56,4 +56,4 @@ block body
     .send.button(v-on='click: send(this)')
       p {{status}}
 
-  script(src='/js/index.js', type='text/javascript')
+  script(src='/index.js', type='text/javascript')
