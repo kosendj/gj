@@ -4,7 +4,7 @@ request = require 'request'
 io      = process.globals.io
 
 check = (url, callback)->
-  if url.match(/^http:\/\/sorah-gif/)
+  if url.match(/\.kosendj-bu\.in\//)
     callback(null, true)
     return
 
