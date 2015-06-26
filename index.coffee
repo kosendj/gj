@@ -1,6 +1,20 @@
 express = require 'express'
 bodyParser = require 'body-parser'
+cors = require 'cors'
+
 app = express()
+
+app.use(cors(
+  origin: (origin, callback) ->
+    if origin
+      allow = origin.match(/\.kosendj-bu\.in\//) != null
+      if app.get('env') == "development"
+        allow = allow || origin.match(/localhost/) != null
+
+      callback(null, allow)
+    else
+      callback(null, false)
+))
 
 http = require('http').Server app
 io = require('socket.io')(http)
