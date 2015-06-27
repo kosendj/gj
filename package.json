@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.13.1",
     "coffee-script": "^1.9.3",
+    "cors": "^2.7.1",
     "express": "^4.12.4",
     "jade": "^1.11.0",
     "livescript": "^1.4.0",

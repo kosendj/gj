@@ -44,9 +44,8 @@ change = ->
   setTimeout change, (main.$data.bpm / 60) * 1000
 
 processUrls = (urls) ->
-  for x in urls
-    url = x.replace /^https?:\/\/img\.sorah\.jp/, \http://sorah-pub.s3.amazonaws.com
-    if url.match /^https?:\/\/(?:sorah-pub\.s3\.amazonaws\.com|192\.168|10\.|sorah-gif)/
+  for url in urls
+    if url.match /\.kosendj-bu\.in\//
       url
     else
       "/gifs/retrieve/#{url}"
