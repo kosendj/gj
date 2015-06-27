@@ -58,7 +58,7 @@ change = ->
   setTimeout change, (main.$data.bpm / 60) * 1000
 
 processUrls = (urls) ->
-  for x in urls
+  for url in urls
     if url.match(/\.kosendj-bu\.in\//)
       url
     else
