@@ -9,7 +9,7 @@ unless process.env.DISABLE_TWITTER == '1'
     access_token: process.env.ACCESS_TOKEN
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 
-  replaceHashtag = new RegExp process.env.HASH_TAG, 'g'
+  replaceHashtag = new RegExp "##{process.env.HASH_TAG}", 'g'
 
   stream = twitter.stream 'statuses/filter',
     track: "##{process.env.HASH_TAG}"
