@@ -43,7 +43,8 @@ app.get '/', (req, res)-> res.render 'index'
 app.get '/gifs', require('./lib/gif').index
 app.post '/gifs', require('./lib/gif').add
 app.get '/gifs/queue', require('./lib/queue').index
-app.get /^\/gifs\/retrieve\/(.+)$/, require('./lib/gif').retrieve
+unless process.env.CAMO_URL
+  app.get /^\/gifs\/retrieve\/(.+)$/, require('./lib/gif').retrieve
 app.get '/screen', (req, res)-> res.render 'screen'
 app.get '/bpm', require('./lib/bpm').get
 app.get '/usage', (req, res)-> res.render 'usage'
