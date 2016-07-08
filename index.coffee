@@ -38,6 +38,7 @@ app.set 'views', "#{__dirname}/views"
 app.set 'view engine', 'jade'
 app.use bodyParser.urlencoded({extended: true})
 app.use express.static("#{__dirname}/build")
+app.use express.static("#{__dirname}/public")
 
 app.get '/', (req, res)-> res.render 'index'
 app.get '/gifs', require('./lib/gif').index
